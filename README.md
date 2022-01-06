@@ -1,6 +1,6 @@
 # Petri Dish
 
- Page: https://steuerschleuder1000.github.io/MushroomSim/
+ Page: https://steuerschleuder1000.github.io/PetriDish/
  
  <img src="https://raw.githubusercontent.com/SteuerSchleuder1000/MushroomSim/main/mushroom.gif" width="50%" height="50%"></img>
 
