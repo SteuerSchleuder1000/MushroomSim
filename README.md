@@ -1,10 +1,11 @@
 # MushroomSim
 
 Simulates a petri dish of virtual mushrooms represented as qudratic colored cells.
-Each update step cells will "eat" and replace neighbouring cells depending on the rules setup.
+Each update step 
+ - cells will check their surrounding "eat" and replace neighbouring cells depending on the rules setup.
+ - each cell has a chance to mutate and slightly change its color.
 
-
-![alt text](https://github.com/SteuerSchleuder1000/MushroomSim/blob/main/colorPie.jpg?raw=true)
+![Color pie image](https://github.com/SteuerSchleuder1000/MushroomSim/blob/main/colorPie.jpg?raw=true){:height="50%" width="50%"}
 
 
 
