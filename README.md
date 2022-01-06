@@ -1,4 +1,4 @@
-# MushroomSim
+# Petri Dish
 
  Page: https://steuerschleuder1000.github.io/MushroomSim/
  
