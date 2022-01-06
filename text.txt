@@ -1,5 +1,9 @@
 Todo
 
-- info page
-- controls
-- walls, mutationrate, color init
+- css
+    font
+    margins
+    - 3 columns
+
+attack rules -> D0
+d1, d2

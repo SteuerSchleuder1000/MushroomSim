@@ -16,24 +16,32 @@ html(lang='en')
         .main
             .sideMenuLeft
                 button#start.setupButton Start
-                button#restart.setupButton Restart
                 
-                label.info Mutation Probability
-                input#mutationProbability(type="range", name="mutationProbability", min="0", max="100", value="5").setupButton
-                label.info Mutation Amount
-                input#mutationAmount(type="range", name="mutationAmount", min="0", max="50", value="5").setupButton
+                
+                
+                label.info Color Hue
+                select#selectHues(name="hues").setupButton
+                    option(value="hue_init") Default
+                    option(value="gradient") Gradient 
+                    option(value="random") Random
                 label.info Walls
                 select#selectWalls(name="walls").setupButton
                     option(value="noWalls") No Walls
                     option(value="squares") Squares 
                     option(value="squares_holed") Squares with holes
-                    option(value="labyrinth") Labyrinth
-                label.info Color Hue
-                select#selectHues(name="hues").setupButton
-                    option(value="hue_init") Default
-                    option(value="gradient") Gradient 
-                    option(value="random") Random 
+                    //- option(value="labyrinth") Labyrinth
+                
+                label.info Mutation Probability
+                input#mutationProbability(type="range", name="mutationProbability", min="0", max="100", value="5").setupButton
+                label.info Mutation Amount
+                input#mutationAmount(type="range", name="mutationAmount", min="0", max="50", value="5").setupButton
+               
+
+                label.info Attack Angles
+                input#angle1(type="range", name="angle1", min="0", max="179", value="30").setupButton
+                input#angle2(type="range", name="angle2", min="0", max="179", value="60").setupButton
+                button#restart.setupButton Reset
 
             .boardContainer
                 canvas#board
-                label#stepCounter
+                label#stepCounter #0

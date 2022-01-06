@@ -15,28 +15,30 @@
     <div class="main">
       <div class="sideMenuLeft">
         <button class="setupButton" id="start">Start</button>
-        <button class="setupButton" id="restart">Restart</button>
-        <label class="info">Mutation Probability</label>
-        <input class="setupButton" id="mutationProbability" type="range" name="mutationProbability" min="0" max="100" value="5"/>
-        <label class="info">Mutation Amount</label>
-        <input class="setupButton" id="mutationAmount" type="range" name="mutationAmount" min="0" max="50" value="5"/>
+        <label class="info">Color Hue</label>
+        <select class="setupButton" id="selectHues" name="hues">
+          <option value="hue_init">Default</option>
+          <option value="gradient">Gradient </option>
+          <option value="random">Random</option>
+        </select>
         <label class="info">Walls</label>
         <select class="setupButton" id="selectWalls" name="walls">
           <option value="noWalls">No Walls</option>
           <option value="squares">Squares </option>
           <option value="squares_holed">Squares with holes</option>
-          <option value="labyrinth">Labyrinth</option>
         </select>
-        <label class="info">Color Hue</label>
-        <select class="setupButton" id="selectHues" name="hues">
-          <option value="hue_init">Default</option>
-          <option value="gradient">Gradient </option>
-          <option value="random">Random </option>
-        </select>
+        <label class="info">Mutation Probability</label>
+        <input class="setupButton" id="mutationProbability" type="range" name="mutationProbability" min="0" max="100" value="5"/>
+        <label class="info">Mutation Amount</label>
+        <input class="setupButton" id="mutationAmount" type="range" name="mutationAmount" min="0" max="50" value="5"/>
+        <label class="info">Attack Angles</label>
+        <input class="setupButton" id="angle1" type="range" name="angle1" min="0" max="179" value="30"/>
+        <input class="setupButton" id="angle2" type="range" name="angle2" min="0" max="179" value="60"/>
+        <button class="setupButton" id="restart">Reset</button>
       </div>
       <div class="boardContainer">
         <canvas id="board"></canvas>
-        <label id="stepCounter"></label>
+        <label id="stepCounter">#0</label>
       </div>
     </div>
   </body>

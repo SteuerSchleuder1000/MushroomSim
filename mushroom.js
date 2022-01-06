@@ -10,17 +10,18 @@ window.onload = ()=> {
 
 let board, 
     canvas, 
-    ctx, 
-    w, 
-    h, 
-    l, 
-    X, 
-    Y, 
-    D0, 
-    D,
+    ctx, // 2d context
+    w, // width of canvas
+    h, // height of canvas
+    l, // Pixel length of cells
+    X, // #Cells in x direction
+    Y, // #Cells in y direction
+    D0, // lower angle
+    D1, // higher angle
+    hue_init = Math.random()*360, // intial hue
     mutationAmount = 5,
     mutationProbability = 0.1,
-    stepCounter,
+    stepCounter, // label displaying _count
     _count;
 
 let updating = false;
@@ -31,6 +32,8 @@ let setup = ()=> {
     document.getElementById('restart').onclick = onClickRestart;
     document.getElementById('mutationProbability').onchange = onSliderChange;
     document.getElementById('mutationAmount').onchange = onSliderChange;
+    document.getElementById('angle1').onchange = onSliderChange;
+    document.getElementById('angle2').onchange = onSliderChange;
     document.getElementById('selectWalls').onchange = onWallSelection;
     document.getElementById('selectHues').onchange = onHueSelection;
 
@@ -47,7 +50,7 @@ let setup = ()=> {
     X = parseInt(w/l)
     Y = parseInt(h/l)
     D0 = 30
-    D = 60
+    D1 = 60
     mutation = 0.1
 
     _count = 0
@@ -59,7 +62,7 @@ let setup = ()=> {
     board = new Object()
     board.data = [] // data is a 2d matrix in which each cell is a color vector [hue, sat, lum, isWall]
 
-    let hue_init = Math.random()*360
+    
     for (let x = 0; x < X; x++) {
         let row = []
         for (let y = 0; y < Y; y++) {
@@ -161,8 +164,8 @@ let checkEat = (f1, f2)=>{
 
     switch (rule) {
         case 'minDifference':
-            if ((d > D0 && d <= D) || (d > -360+D0 && d <= -360+D)) return 1;
-            else if ((d < -D0 && d >= -D) || (d < 360-D0 && d >= 360-D)) return -1;
+            if ((d > D0 && d <= D1) || (d > -360+D0 && d <= -360+D1)) return 1;
+            else if ((d < -D0 && d >= -D1) || (d < 360-D0 && d >= 360-D1)) return -1;
             else return 0;
             break;
         
@@ -260,12 +263,20 @@ let onHueSelection = (e)=> {
 
 let onSliderChange = (e)=>{
     let slider = e.target;
+    let v = parseInt(slider.value);
     switch (slider.id) {
         case 'mutationProbability':
-            mutationProbability = parseInt(slider.value);
+            mutationProbability = v;
             break;
         case 'mutationAmount':
-            mutationAmount = parseInt(slider.value);
+            mutationAmount = v;
+            break;
+        case 'angle1':
+        case 'angle2':
+            let v1 = document.getElementById('angle1').value;
+            let v2 = document.getElementById('angle2').value;
+            D0 = Math.min(v1, v2);
+            D1 = Math.max(v1, v2);
             break;
     }
 }
