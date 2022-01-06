@@ -1,7 +1,7 @@
 
 <html lang="en">
   <head>
-    <title>Evolving Mushrooms</title>
+    <title>Petri Dish</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
@@ -11,11 +11,33 @@
     <link rel="stylesheet" href="style.css"/>
   </head>
   <body>
-    <button id="start">Start</button>
-    <button id="pause">Pause</button>
-    <button id="restart">Restart</button>
+    <div class="title">Petri Dish</div>
     <div class="main">
-      <canvas id="board"></canvas>
+      <div class="sideMenuLeft">
+        <button class="setupButton" id="start">Start</button>
+        <button class="setupButton" id="restart">Restart</button>
+        <label class="info">Mutation Probability</label>
+        <input class="setupButton" id="mutationProbability" type="range" name="mutationProbability" min="0" max="100" value="5"/>
+        <label class="info">Mutation Amount</label>
+        <input class="setupButton" id="mutationAmount" type="range" name="mutationAmount" min="0" max="50" value="5"/>
+        <label class="info">Walls</label>
+        <select class="setupButton" id="selectWalls" name="walls">
+          <option value="noWalls">No Walls</option>
+          <option value="squares">Squares </option>
+          <option value="squares_holed">Squares with holes</option>
+          <option value="labyrinth">Labyrinth</option>
+        </select>
+        <label class="info">Color Hue</label>
+        <select class="setupButton" id="selectHues" name="hues">
+          <option value="hue_init">Default</option>
+          <option value="gradient">Gradient </option>
+          <option value="random">Random </option>
+        </select>
+      </div>
+      <div class="boardContainer">
+        <canvas id="board"></canvas>
+        <label id="stepCounter"></label>
+      </div>
     </div>
   </body>
 </html>

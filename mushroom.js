@@ -17,8 +17,10 @@ let board,
     X, 
     Y, 
     D0, 
-    D, 
-    mutation,
+    D,
+    mutationAmount = 5,
+    mutationProbability = 0.1,
+    stepCounter,
     _count;
 
 let updating = false;
@@ -27,13 +29,19 @@ let setup = ()=> {
     // setup buttons
     document.getElementById('start').onclick = onClickStart;
     document.getElementById('restart').onclick = onClickRestart;
+    document.getElementById('mutationProbability').onchange = onSliderChange;
+    document.getElementById('mutationAmount').onchange = onSliderChange;
+    document.getElementById('selectWalls').onchange = onWallSelection;
+    document.getElementById('selectHues').onchange = onHueSelection;
+
+    stepCounter = document.getElementById('stepCounter');
     
     // setup canvas
     canvas = document.getElementById('board')
     ctx = canvas.getContext("2d")
 
-    w = 1000
-    h = 750
+    w = 500
+    h = 500
     l = 5
 
     X = parseInt(w/l)
@@ -56,16 +64,9 @@ let setup = ()=> {
         let row = []
         for (let y = 0; y < Y; y++) {
     
-            // random wall
-            // let isWall = Math.random()< 0.01; // 1% of cells are walls
-            // let hue = Math.random()*360;
-
-            let isWall = x%parseInt(X/3)==0 || y%parseInt(Y/3)==0;
-            isWall = y%30==0 ? false : isWall;
             let hue = x> X/3 ? Math.random()*360 : hue_init;
-
-
-            row.push([hue, 1, 0.79, isWall]) // [hue, sat, lum, isWall?]
+            hue = hue_init;
+            row.push([hue, 1, 0.79, false]) // [hue, sat, lum, isWall?]
         }
 
         board.data.push(row)
@@ -98,6 +99,7 @@ let draw = ()=> {
 let update = ()=>{
     if (!updating) return;
     _count += 1
+    stepCounter.innerText = '#'+_count
     let next = [] // next board state
 
     for (let x=0; x<X; x++) {
@@ -147,8 +149,8 @@ let update = ()=>{
     for (let x=0; x<X; x++) {
         for (let y=0; y<Y; y++) {
             board.data[x][y][0] = next[x][y][0]
-            if (Math.random() < mutation) { board.data[x][y][0] = (board.data[x][y][0]+Math.random()*5)%360 }
-            if (Math.random() < mutation) { board.data[x][y][0] = (board.data[x][y][0]-Math.random()*5)%360 }
+            if (Math.random() < mutationProbability) { board.data[x][y][0] = (board.data[x][y][0]+(Math.random()-1)*mutationAmount)%360 }
+            // if (Math.random() < mutationProbability) { board.data[x][y][0] = (board.data[x][y][0]-Math.random()*mutationAmount)%360 }
     }}
 }
 
@@ -192,6 +194,53 @@ let checkEat = (f1, f2)=>{
     
 }
 
+let changeHue = (hue)=> {
+    for (let x = 0; x < X; x++) {
+        for (let y = 0; y < Y; y++) {
+            switch(hue){
+                case 'hue_init':
+                    board.data[x][y][0] = hue_init;
+                    break;
+                case 'random':
+                    board.data[x][y][0] = Math.random()*360;
+                    break;
+                case 'gradient':
+                    board.data[x][y][0] = (x+y)%360;
+                    break;
+            }
+        }
+    }
+
+}// change hue
+
+
+let changeWall = (wallType)=>{
+    console.log('wall change ', wallType)
+    let isWall = false;
+    for (let x = 0; x < X; x++) {
+        for (let y = 0; y < Y; y++) {
+
+            isWall = false
+            switch(wallType){
+                case 'noWalls':
+                    isWall = false
+                    break;
+                case 'squares':
+                    isWall = x%parseInt(X/3)==0 || y%parseInt(Y/3)==0
+                    break;
+                case 'squares_holed':
+                    isWall = x%parseInt(X/3)==0 || y%parseInt(Y/3)==0
+                    isWall = y%30==0 && y!=0 && y!=Y-1 && x!=0 && x != X-1 ? false : isWall;
+                    break;
+                default:
+                    isWall = false;
+            }
+            
+            board.data[x][y][3] = isWall;
+        }
+    }
+}// changeWall
+
 let onClickStart = (e)=> {
     updating = !updating;
     e.target.innerText = updating ? 'Pause' : 'Start';
@@ -199,6 +248,26 @@ let onClickStart = (e)=> {
 
 let onClickRestart = ()=>{
     location.reload();
+}
+
+let onWallSelection = (e)=>{
+    changeWall(e.target.value)
+}
+
+let onHueSelection = (e)=> {
+    changeHue(e.target.value)
+}
+
+let onSliderChange = (e)=>{
+    let slider = e.target;
+    switch (slider.id) {
+        case 'mutationProbability':
+            mutationProbability = parseInt(slider.value);
+            break;
+        case 'mutationAmount':
+            mutationAmount = parseInt(slider.value);
+            break;
+    }
 }
 
 var intervalId = window.setInterval(function(){
