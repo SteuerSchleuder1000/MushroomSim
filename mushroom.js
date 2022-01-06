@@ -266,7 +266,7 @@ let onSliderChange = (e)=>{
     let v = parseInt(slider.value);
     switch (slider.id) {
         case 'mutationProbability':
-            mutationProbability = v;
+            mutationProbability = v/100;
             break;
         case 'mutationAmount':
             mutationAmount = v;
