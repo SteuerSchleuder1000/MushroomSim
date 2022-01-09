@@ -11,7 +11,7 @@ Each update step
  - cells will check their surrounding "eat" and replace neighbouring cells depending on the rules setup.
  - each cell has a chance to mutate and slightly change its color.
 
-<img src="https://raw.githubusercontent.com/SteuerSchleuder1000/MushroomSim/main/ColorPie.jpg" width="300" height="300"></img>
+<img src="https://raw.githubusercontent.com/SteuerSchleuder1000/MushroomSim/main/ColorPie2.jpg" width="300" height="300"></img>
 
 
 
